@@ -3,10 +3,28 @@ services:
   redis-a:
     container_name: redis-a
     image: redis
-    command: redis-server /data/redis.conf
+    command: redis-server /data/redis-a.conf
     networks:
       default:
         ipv4_address: 10.5.0.5
+    volumes:
+      - ".:/data"
+  redis-b:
+    container_name: redis-b
+    image: redis
+    command: redis-server /data/redis-b.conf
+    networks:
+      default:
+        ipv4_address: 10.5.0.6
+    volumes:
+      - ".:/data"
+  redis-c:
+    container_name: redis-c
+    image: redis
+    command: redis-server /data/redis-c.conf
+    networks:
+      default:
+        ipv4_address: 10.5.0.7
     volumes:
       - ".:/data"
 networks:
