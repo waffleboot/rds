@@ -3,9 +3,9 @@ services:
   some-redis:
     container_name: some-redis
     image: redis
-    command: redis-server /opt/host/redis.conf
+    command: redis-server /data/redis.conf
     volumes:
-      - ".:/opt/host"
+      - ".:/data"
 networks:
   default:
     name: some-network
