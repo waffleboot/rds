@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  some-redis:
+    container_name: some-redis
+    image: redis
+    command: redis-server /opt/host/redis.conf
+    volumes:
+      - ".:/opt/host"
+networks:
+  default:
+    name: some-network
