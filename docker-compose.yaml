@@ -4,8 +4,15 @@ services:
     container_name: some-redis
     image: redis
     command: redis-server /data/redis.conf
+    networks:
+      default:
+        ipv4_address: 10.5.0.5
     volumes:
       - ".:/data"
 networks:
   default:
     name: some-network
+    ipam:
+      config:
+        - subnet: 10.5.0.0/24
+          gateway: 10.5.0.1
