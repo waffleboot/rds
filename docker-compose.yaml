@@ -27,6 +27,16 @@ services:
         ipv4_address: 10.5.0.7
     volumes:
       - ".:/data"
+  # some-redis:
+  #   container_name: some-redis
+  #   image: redis
+  #   command: redis-server /data/redis.conf
+  #   volumes:
+  #     - ".:/data"
+  # replica:
+  #   container_name: replica
+  #   image: redis
+  #   command: redis-server --port 6379 --slaveof some-redis 6379
 networks:
   default:
     name: some-network
