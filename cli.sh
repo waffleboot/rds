@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker run -it --network some-network --rm redis redis-cli -c -h redis-a
+docker run -it --network redis-network --rm redis redis-cli -h sentinel-1 -p 5000
 
 # docker run -it --network some-network --rm redis redis-cli -h some-redis
 
