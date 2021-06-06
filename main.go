@@ -2,24 +2,6 @@ package main
 
 // #define REDISMODULE_EXPERIMENTAL_API
 // #include "redismodule.h"
-// #include <stdlib.h>
-// static void
-// filter (RedisModuleCommandFilterCtx *filter) {
-// }
-// static int
-// HelloworldRand_RedisCommand(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
-//     RedisModule_ReplyWithLongLong(ctx,rand());
-//     return REDISMODULE_OK;
-// }
-// int RedisModule_OnLoad(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
-//     if (RedisModule_Init(ctx,"filter",1,REDISMODULE_APIVER_1) == REDISMODULE_ERR) return REDISMODULE_ERR;
-//     RedisModule_RegisterCommandFilter(ctx, filter, 0);
-//     if (RedisModule_CreateCommand(ctx,"helloworld.rand",
-//         HelloworldRand_RedisCommand, "fast random",
-//         0, 0, 0) == REDISMODULE_ERR)
-//         return REDISMODULE_ERR;
-//     return REDISMODULE_OK;
-// }
 import "C"
 
 import (
@@ -29,6 +11,33 @@ import (
 
 	"github.com/go-redis/redis/v8"
 )
+
+var moduleCtx *C.RedisModuleCtx
+
+//export setModuleCtx
+func setModuleCtx(ctx *C.RedisModuleCtx) {
+	moduleCtx = ctx
+}
+
+//export getModuleCtx
+func getModuleCtx() *C.RedisModuleCtx {
+	return moduleCtx
+}
+
+var g func(*C.RedisModuleString, *C.size_t) *C.char = *C.RedisModule_StringPtrLen
+
+func filter(ctx *C.struct_RedisModuleCommandFilterCtx) {
+	var len C.size_t
+
+	// REDISMODULE_API const char * (*RedisModule_StringPtrLen)(const RedisModuleString *str, size_t *len) REDISMODULE_ATTR;
+
+	// g((*RedisModule_CommandFilterArgGet)(ctx, 0), &len)
+
+	// const char* cmd = RedisModule_StringPtrLen(RedisModule_CommandFilterArgGet(ctx,0),&len);
+	// if (!strcmp(cmd,"info") && RedisModule_CommandFilterArgsCount(ctx) == 1) {
+	//     RedisModule_CommandFilterArgInsert(ctx,1,RedisModule_CreateStringPrintf(getModuleCtx(),"stats"));
+	// }
+}
 
 var ctx = context.Background()
 
