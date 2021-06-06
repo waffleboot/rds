@@ -4,42 +4,36 @@ services:
     container_name: sentinel-1
     image: redis
     command: redis-sentinel /data/sentinel-1.conf
-    ports:
-      - "127.0.0.1:5001:5000"
-    depends_on:
-      - mymaster
-      - resque
     networks:
       default:
         ipv4_address: 10.5.0.5
+    depends_on:
+      - mymaster
+      - resque
     volumes:
       - ".:/data"
   sentinel-2:
     container_name: sentinel-2
     image: redis
     command: redis-sentinel /data/sentinel-2.conf
-    ports:
-      - "127.0.0.1:5002:5000"
-    depends_on:
-      - mymaster
-      - resque
     networks:
       default:
         ipv4_address: 10.5.0.6
+    depends_on:
+      - mymaster
+      - resque
     volumes:
       - ".:/data"
   sentinel-3:
     container_name: sentinel-3
     image: redis
     command: redis-sentinel /data/sentinel-3.conf
-    ports:
-      - "127.0.0.1:5003:5000"
-    depends_on:
-      - mymaster
-      - resque
     networks:
       default:
         ipv4_address: 10.5.0.7
+    depends_on:
+      - mymaster
+      - resque
     volumes:
       - ".:/data"
 
@@ -47,8 +41,6 @@ services:
     container_name: mymaster
     image: redis
     command: redis-server /data/mymaster.conf
-    ports:
-      - "127.0.0.1:6379:6379"
     networks:
       default:
         ipv4_address: 10.5.0.8
@@ -59,13 +51,11 @@ services:
     container_name: resque
     image: redis
     command: redis-server /data/resque.conf
-    ports:
-      - "127.0.0.1:6380:6379"
-    depends_on:
-      - mymaster
     networks:
       default:
         ipv4_address: 10.5.0.9
+    depends_on:
+      - mymaster
     volumes:
       - ".:/data"
 
