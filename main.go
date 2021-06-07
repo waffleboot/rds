@@ -96,8 +96,8 @@ func getContext() context.Context {
 	go func() {
 		c := make(chan os.Signal, 1)
 		signal.Notify(c, os.Interrupt)
-		defer signal.Stop(c)
 		<-c
+		signal.Stop(c)
 		close(c)
 		cancel()
 	}()
