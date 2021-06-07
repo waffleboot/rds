@@ -1,68 +1,8 @@
 version: "3.9"
 services:
-  sentinel-1:
-    container_name: sentinel-1
+  redis:
+    container_name: redis
     image: redis
-    command: redis-sentinel /data/sentinel-1.conf
-    networks:
-      default:
-        ipv4_address: 10.5.0.5
-    depends_on:
-      - mymaster
-      - resque
+    command: redis-server /data/redis.conf
     volumes:
       - ".:/data"
-  sentinel-2:
-    container_name: sentinel-2
-    image: redis
-    command: redis-sentinel /data/sentinel-2.conf
-    networks:
-      default:
-        ipv4_address: 10.5.0.6
-    depends_on:
-      - mymaster
-      - resque
-    volumes:
-      - ".:/data"
-  sentinel-3:
-    container_name: sentinel-3
-    image: redis
-    command: redis-sentinel /data/sentinel-3.conf
-    networks:
-      default:
-        ipv4_address: 10.5.0.7
-    depends_on:
-      - mymaster
-      - resque
-    volumes:
-      - ".:/data"
-
-  mymaster:
-    container_name: mymaster
-    image: redis
-    command: redis-server /data/mymaster.conf
-    networks:
-      default:
-        ipv4_address: 10.5.0.8
-    volumes:
-      - ".:/data"
-
-  resque:
-    container_name: resque
-    image: redis
-    command: redis-server /data/resque.conf
-    networks:
-      default:
-        ipv4_address: 10.5.0.9
-    depends_on:
-      - mymaster
-    volumes:
-      - ".:/data"
-
-networks:
-  default:
-    name: redis-network
-    ipam:
-      config:
-        - subnet: 10.5.0.0/24
-          gateway: 10.5.0.1

@@ -8,4 +8,4 @@
 
 # docker run -it --net=host --rm redis redis-cli -p 16379
 
-docker exec -it sentinel-1 redis-cli -p 5000
+docker exec -it redis redis-cli -p 6379
