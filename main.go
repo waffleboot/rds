@@ -95,10 +95,10 @@ func getContext() context.Context {
 	ctx, cancel := context.WithCancel(context.Background())
 	go func() {
 		c := make(chan os.Signal, 1)
-		defer close(c)
 		signal.Notify(c, os.Interrupt)
 		defer signal.Stop(c)
 		<-c
+		close(c)
 		cancel()
 	}()
 	return ctx
