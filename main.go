@@ -24,6 +24,7 @@ func isBusyGroup(err error) bool {
 
 func sleep(ctx context.Context, ticker *time.Ticker) bool {
 	ticker.Reset(3 * time.Second)
+	defer ticker.Stop()
 	select {
 	case <-ticker.C:
 		return false
