@@ -10,10 +10,6 @@ import (
 	"time"
 
 	"github.com/go-redis/redis/v8"
-
-	_ "net/http/pprof"
-
-	_ "net/http"
 )
 
 type MyLogger struct {
