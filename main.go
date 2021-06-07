@@ -91,7 +91,7 @@ func getConsumer() (string, error) {
 	return os.Args[1], nil
 }
 
-func getIntSignal() context.Context {
+func getContext() context.Context {
 	ctx, cancel := context.WithCancel(context.Background())
 	go func() {
 		c := make(chan os.Signal, 1)
@@ -119,7 +119,7 @@ func main() {
 	})
 	defer rdb.Close()
 
-	if err := run(getIntSignal(), rdb, consumer); err != nil {
+	if err := run(getContext(), rdb, consumer); err != nil {
 		fmt.Println(err)
 	}
 
