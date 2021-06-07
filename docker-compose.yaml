@@ -6,3 +6,17 @@ services:
     command: redis-server /data/redis.conf
     volumes:
       - ".:/data"
+  resque:
+    container_name: resque
+    image: redis
+    command: redis-server /data/resque.conf
+    volumes:
+      - ".:/data"
+
+networks:
+  default:
+    name: redis-network
+    ipam:
+      config:
+        - subnet: 10.5.0.0/24
+          gateway: 10.5.0.1
