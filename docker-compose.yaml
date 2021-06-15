@@ -2,13 +2,13 @@ version: "3.9"
 services:
   redis:
     container_name: redis
-    image: redis
+    image: yangand/redis:latest
     command: redis-server /data/redis.conf
     volumes:
       - ".:/data"
   resque:
     container_name: resque
-    image: redis
+    image: yangand/redis:latest
     command: redis-server /data/resque.conf
     volumes:
       - ".:/data"
