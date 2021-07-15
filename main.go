@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -32,4 +33,9 @@ func main() {
 		panic(err)
 	}
 	fmt.Println("key", val)
+
+	for {
+		<-time.After(3 * time.Second)
+		rdb.Set(ctx, "key", "test", 0)
+	}
 }
