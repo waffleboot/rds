@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker exec -it --privileged redis gdb --pid 1
+docker exec -it --privileged redis gdb --command=/data/gdb.txt --pid 1
 

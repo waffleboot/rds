@@ -1,0 +1,45 @@
+dir /redis
+
+set confirm off
+set pagination off
+
+#break readQueryFromClient
+
+break networking.c:2146
+commands
+silent
+printf "reqtype=%d, multibulklen=%d, bulklen=%ld\n", c->reqtype, c->multibulklen, c->bulklen
+continue
+end
+
+break networking.c:2171
+commands
+silent
+printf "readlen=%lu\n", readlen
+continue
+end
+
+break networking.c:2172
+commands
+silent
+printf "nread=%lu\n", nread
+continue
+end
+
+break networking.c:2200
+commands
+silent
+printf "qblen=%lu\n", qblen
+continue
+end
+
+break server.c:3950
+commands
+silent
+printf "command=%s\n", c->argv[0]->ptr
+continue
+end
+
+shell clear
+
+continue
